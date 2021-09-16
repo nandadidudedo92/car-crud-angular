@@ -1,0 +1,43 @@
+<div class="container mt-5">
+
+    <div class="row">
+        <h1 class="text-center">{{titlePage}}</h1>
+    </div>
+
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Car Name</span>
+        <input type="text" class="form-control" placeholder="Car Name" aria-label="carName" [(ngModel)]="car.carName"
+            aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Number</span>
+        <input type="text" class="form-control" placeholder="Number" aria-label="number" [(ngModel)]="car.number"
+            aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Color</span>
+        <input type="text" class="form-control" placeholder="Color" aria-label="color" aria-describedby="basic-addon1"
+            [(ngModel)]="car.color">
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Type</span>
+        <input type="text" class="form-control" placeholder="Type" aria-label="type" aria-describedby="basic-addon1"
+            [(ngModel)]="car.type">
+    </div>
+
+    <div class="row">
+        <div class="col-6"><button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button></div>
+        <div class="col-6 text-end">
+            <button type="button" class="btn btn-success" (click)="save()">Save</button>
+        </div>
+
+    </div>
+
+    <!-- car_name 
+    number
+    color
+    type -->
