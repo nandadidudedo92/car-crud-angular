@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
+import { CommonAllert } from 'src/app/shared/common-alert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-car-list',
@@ -12,7 +14,7 @@ export class CarListComponent implements OnInit {
 
   carList: Car[] = []
 
-  constructor(private router: Router, private carService: CarService) { }
+  constructor(private router: Router, private carService: CarService, private commonAlert: CommonAllert) { }
 
   ngOnInit(): void {
     this.getAllCar()
@@ -28,7 +30,7 @@ export class CarListComponent implements OnInit {
         console.log(data)
         this.carList = data.datas
       }, error => {
-
+        this.commonAlert.showErrorAlert(error.message)
       }
     )
   }
@@ -38,4 +40,30 @@ export class CarListComponent implements OnInit {
     this.router.navigate(['add-car'], { state: { data: car } })
   }
 
+  async delete(car: Car) {
+
+    let confirmDelete = await this.commonAlert.showConfirmDelete()
+
+    if (confirmDelete) {
+      this.carService.deleteCar(car.id!).subscribe(
+        data => {
+
+          if (data.status == 200) {
+
+            this.getAllCar()
+          } else {
+            this.commonAlert.showErrorAlert(data.message)
+          }
+
+        }, error => {
+          this.commonAlert.showErrorAlert(error.message)
+        }
+      )
+
+    }
+
+
+
+
+  }
 }

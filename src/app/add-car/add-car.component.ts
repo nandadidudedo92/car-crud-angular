@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Car } from '../models/car';
 import { CarService } from '../services/car.service';
+import { CommonAllert } from '../shared/common-alert';
 
 @Component({
   selector: 'app-add-car',
@@ -15,7 +17,7 @@ export class AddCarComponent implements OnInit {
 
   car = new Car()
 
-  constructor(private carService: CarService, private router: Router) { }
+  constructor(private carService: CarService, private router: Router, private commonAlert: CommonAllert) { }
 
   ngOnInit(): void {
     if (history.state) {
@@ -31,21 +33,19 @@ export class AddCarComponent implements OnInit {
     console.log(this.car)
 
     if (this.car.carName == undefined) {
-      alert("car name wajib diisi")
+      this.commonAlert.showWarningAlert("Car Name wajib diisi")
     } else if (this.car.number == undefined) {
-      alert("number wajib diisi")
+      this.commonAlert.showWarningAlert("Number wajib diisi")
     } else if (this.car.color == undefined) {
-      alert("color wajib diisi")
+      this.commonAlert.showWarningAlert("Color wajib diisi")
     } else if (this.car.type == undefined) {
-      alert("type wajib diisi")
+      this.commonAlert.showWarningAlert("Type wajib diisi")
     } else {
       this.carService.addNewCar(this.car).subscribe(
         data => {
-
-          this.router.navigate(['car-list'])
-
+          this.commonAlert.showSuccessAlert(this.titlePage, "car-list")
         }, error => {
-          console.log(error)
+          this.commonAlert.showErrorAlert(error.message)
         }
       )
 

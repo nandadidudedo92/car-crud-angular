@@ -17,4 +17,11 @@ export class CarService {
     return this.httpClient.get<any>("/api/car/getall")
   }
 
+  deleteCar(carId: number) {
+
+    return this.httpClient.get<any>("/api/car/deleteCar?id=" + carId)
+  }
+
+
+
 }
